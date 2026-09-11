@@ -22,7 +22,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
-import { AdSlot } from '@/components/ad-slot';
+import { AdSlot, NativeAdSlot } from '@/components/ad-slot';
 import {
   convertJpgToPng,
   downloadBlob,
@@ -508,6 +508,8 @@ export function ConverterTool() {
         {/* Right sidebar - Sticky ad */}
         <div className="hidden lg:block">
           <div className="sticky top-24 space-y-4">
+            <NativeAdSlot />
+            <AdSlot width={300} height={250} />
             <AdSlot width={300} height={250} />
             <Card className="glass-card p-4">
               <div className="flex items-center gap-2 mb-3">
