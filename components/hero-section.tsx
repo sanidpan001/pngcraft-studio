@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { AdSlot, NativeAdSlot } from '@/components/ad-slot';
 
 const TRUST_BADGES = [
   'No Sign-In Required',
@@ -50,6 +51,16 @@ export function HeroSection() {
               {badge}
             </div>
           ))}
+        </motion.div>
+
+        {/* Top Banner Ad - YE ADD KIYA HAI */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-8 flex justify-center"
+        >
+          <NativeAdSlot />
         </motion.div>
       </div>
     </section>
