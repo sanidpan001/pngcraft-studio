@@ -2,7 +2,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
-import Script from "next/script";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -60,8 +59,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${sora.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
-        </ThemeProvider>
-      <Script src="https://pl31287193.profitableratecpmnetwork.com/fc/bf/ba/fcbfbab35a6216ece78281c91a38b13b.js" strategy="afterInteractive" /> 
+        </ThemeProvider> 
       </body>
     </html>
   );
