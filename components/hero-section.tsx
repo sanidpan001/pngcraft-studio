@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import { NativeAdSlot } from '@/components/ad-slot';
+import { AdSlot } from '@/components/ad-slot';
 
 const TRUST_BADGES = [
   'No Sign-In Required',
@@ -15,9 +15,9 @@ export function HeroSection() {
     <section className="relative pt-8 pb-8 sm:pt-12 sm:pb-10">
       <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         
-        {/* Top Ad - UPAR WALA - Heading se upar */}
-        <div className="mb-6 flex justify-center w-full overflow-hidden">
-          <NativeAdSlot />
+        {/* Top Banner - Sirf ye rahega */}
+        <div className="mb-6 flex justify-center w-full">
+          <AdSlot width={728} height={90} />
         </div>
 
         <motion.div
