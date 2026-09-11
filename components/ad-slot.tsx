@@ -1,12 +1,9 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-export function AdSlot() {
+export function AdSlot({ width, height, className }: { width?: number; height?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
     if (!ref.current) return;
     ref.current.innerHTML = '';
     const s1 = document.createElement('script');
@@ -15,14 +12,9 @@ export function AdSlot() {
     s2.src = 'https://www.highrevenueformat.com/101c6d1138f9b92802136fd3942bb33f/invoke.js';
     ref.current.append(s1, s2);
   }, []);
-
   return (
-    <div className="w-full flex justify-center overflow-hidden">
-      <div 
-        ref={ref} 
-        className="scale-[0.45] sm:scale-100 origin-top"
-        style={{ width: '728px', height: '90px' }}
-      />
+    <div className={`w-full flex justify-center overflow-hidden ${className || ''}`}>
+      <div ref={ref} className="scale-[0.45] sm:scale-100 origin-top" style={{ width: '728px', height: '90px' }} />
     </div>
   );
 }
