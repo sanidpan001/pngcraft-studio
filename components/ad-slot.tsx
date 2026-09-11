@@ -1,64 +1,73 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
-import { AdSlot } from '@/components/ad-slot';
+import { useEffect, useRef } from 'react';
 
-const TRUST_BADGES = [
-  'No Sign-In Required',
-  'No Watermark',
-  'No Subscription Ever',
-];
+// Top Banner - 728x90
+export function AdSlot({ width, height }: { width: number; height: number }) {
+  const bannerRef = useRef<HTMLDivElement>(null);
 
-export function HeroSection() {
+  useEffect(() => {
+    if (!bannerRef.current) return;
+    bannerRef.current.innerHTML = '';
+
+    const optionsScript = document.createElement('script');
+    optionsScript.innerHTML = `
+      atOptions = {
+        'key' : '101c6d1138f9b92802136fd3942bb33f',
+        'format' : 'iframe',
+        'height' : ${height},
+        'width' : ${width},
+        'params' : {}
+      };
+    `;
+
+    const invokeScript = document.createElement('script');
+    invokeScript.src = 'https://www.highrevenueformat.com/101c6d1138f9b92802136fd3942bb33f/invoke.js';
+
+    bannerRef.current.appendChild(optionsScript);
+    bannerRef.current.appendChild(invokeScript);
+  }, [width, height]);
+
   return (
-    <section className="relative pt-8 pb-8 sm:pt-12 sm:pb-10">
-      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-        
-        {/* Top Banner - Sirf ye rahega */}
-        <div className="mb-6 flex justify-center w-full">
-          <AdSlot width={728} height={90} />
-        </div>
+    <div className="w-full flex justify-center overflow-hidden">
+      <div
+        ref={bannerRef}
+        className="max-w-full"
+        style={{ width: `${width}px`, height: `${height}px`, maxWidth: '100%' }}
+      />
+    </div>
+  );
+}
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
-          <h1 className="font-display text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl">
-            JPG to PNG Converter That{' '}
-            <span className="gradient-text">Looks Like $30</span>, But Free
-          </h1>
-        </motion.div>
+// Side Native Bar - Mobile responsive
+export function NativeAdSlot() {
+  const nativeRef = useRef<HTMLDivElement>(null);
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-          className="mt-5 text-base text-muted-foreground text-balance sm:text-lg max-w-2xl mx-auto"
-        >
-          Transparent background support. No Watermark. No Signup. Studio Quality.
-        </motion.p>
+  useEffect(() => {
+    if (!nativeRef.current) return;
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-          className="mt-7 flex flex-wrap items-center justify-center gap-3"
-        >
-          {TRUST_BADGES.map((badge) => (
-            <div
-              key={badge}
-              className="flex items-center gap-2 rounded-full border border-border/50 bg-card/40 backdrop-blur-md px-4 py-2 text-sm font-medium"
-            >
-              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-success/20">
-                <Check className="h-3 w-3 text-success" />
-              </span>
-              {badge}
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+    // Purana ad clear karo taaki 2 baar na load ho
+    const containerId = 'container-33a44e0346854dbc8c664a7c76a4f13f';
+    let container = document.getElementById(containerId);
+    if (!container) {
+      container = document.createElement('div');
+      container.id = containerId;
+      nativeRef.current.appendChild(container);
+    }
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.setAttribute('data-cfasync', 'false');
+    script.src = 'https://pl31287192.profitableratecpmnetwork.com/33a44e0346854dbc8c664a7c76a4f13f/invoke.js';
+
+    if (!document.querySelector(`script[src="${script.src}"]`)) {
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  return (
+    <div ref={nativeRef} className="w-full max-w-[300px] sm:max-w-[320px] mx-auto overflow-hidden flex justify-center min-h-[250px] bg-muted/10 rounded">
+      <div id="container-33a44e0346854dbc8c664a7c76a4f13f"></div>
+    </div>
   );
 }
