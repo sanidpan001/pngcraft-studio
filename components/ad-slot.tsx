@@ -1,57 +1,64 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
+import { AdSlot } from '@/components/ad-slot';
 
-export function AdSlot({ width, height }: { width: number; height: number }) {
-  const adRef = useRef<HTMLModElement>(null);
+const TRUST_BADGES = [
+  'No Sign-In Required',
+  'No Watermark',
+  'No Subscription Ever',
+];
 
-  useEffect(() => {
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.log("AdSense error:", e);
-    }
-  }, []);
-
+export function HeroSection() {
   return (
-    <div style={{ width, height }} className="flex justify-center items-center overflow-hidden bg-muted/30 rounded">
-      <ins
-        ref={adRef as any}
-        className="adsbygoogle"
-        style={{ display: 'block', width: `${width}px`, height: `${height}px` }}
-        data-ad-client="ca-pub-YOUR_ID"
-        data-ad-slot="YOUR_SLOT_ID"
-        data-ad-format="auto"
-      />
-    </div>
-  );
-}
+    <section className="relative pt-8 pb-8 sm:pt-12 sm:pb-10">
+      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        
+        {/* Top Banner - Sirf ye rahega */}
+        <div className="mb-6 flex justify-center w-full">
+          <AdSlot width={728} height={90} />
+        </div>
 
-export function NativeAdSlot() {
-  // ye random id banayega taaki 2 banner clash na kare
-  const randomId = Math.random().toString(36).substring(7);
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
+          <h1 className="font-display text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl">
+            JPG to PNG Converter That{' '}
+            <span className="gradient-text">Looks Like $30</span>, But Free
+          </h1>
+        </motion.div>
 
-  return (
-    <div className="w-full max-w-[340px] sm:max-w-3xl mx-auto px-1">
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        <div className="overflow-hidden">
-          <img src={`https://picsum.photos/seed/${randomId}1/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
-          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">Lonely divorced moms are here</p>
-        </div>
-        <div className="overflow-hidden">
-          <img src={`https://picsum.photos/seed/${randomId}2/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
-          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">NHL Finals — Live in HD</p>
-        </div>
-        <div className="overflow-hidden">
-          <img src={`https://picsum.photos/seed/${randomId}3/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
-          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">College girls need friends</p>
-        </div>
-        <div className="overflow-hidden">
-          <img src={`https://picsum.photos/seed/${randomId}4/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
-          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">Backrooms: Watch now</p>
-        </div>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+          className="mt-5 text-base text-muted-foreground text-balance sm:text-lg max-w-2xl mx-auto"
+        >
+          Transparent background support. No Watermark. No Signup. Studio Quality.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+          className="mt-7 flex flex-wrap items-center justify-center gap-3"
+        >
+          {TRUST_BADGES.map((badge) => (
+            <div
+              key={badge}
+              className="flex items-center gap-2 rounded-full border border-border/50 bg-card/40 backdrop-blur-md px-4 py-2 text-sm font-medium"
+            >
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-success/20">
+                <Check className="h-3 w-3 text-success" />
+              </span>
+              {badge}
+            </div>
+          ))}
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
