@@ -13,9 +13,9 @@ export function AdSlot({ width, height, className }: { width?: number; height?: 
     ref.current.append(s1, s2);
   }, []);
   return (
-    <div className={`w-full flex justify-center overflow-hidden ${className || ''}`}>
-      <div ref={ref} className="scale-[0.45] sm:scale-100 origin-top" style={{ width: '728px', height: '90px' }} />
-    </div>
+   <div className={`w-full flex justify-center overflow-hidden ${className || ''}`}>
+  <div ref={ref} className="w-full max-w-[320px] sm:max-w-[728px] flex justify-center" />
+</div>
   );
 }
 
