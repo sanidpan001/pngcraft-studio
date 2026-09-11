@@ -1,93 +1,56 @@
-"use client";
-import { useEffect, useRef, useId } from "react";
+'use client';
 
-export function AdSlot({ width, height, className }: { width: number, height: number, className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const id = useId().replace(/:/g, "");
+import { useEffect, useRef } from 'react';
+
+export function AdSlot({ width, height }: { width: number; height: number }) {
+  const adRef = useRef<HTMLModElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-    const isMobile = window.innerWidth < 768;
-    const adWidth = isMobile? 300 : width;
-    const adHeight = isMobile? 250 : height;
-
-    // Purana ad clear
-    containerRef.current.innerHTML = "";
-
-    // 1. atOptions wala banner
-    const bannerDiv = document.createElement("div");
-    bannerDiv.id = `ad-${id}`;
-
-    const script1 = document.createElement("script");
-    script1.type = "text/javascript";
-    script1.innerHTML = `
-      atOptions = {
-        'key' : '101c6d1138f9b92802136fd3942bb33f',
-        'format' : 'iframe',
-        'height' : ${adHeight},
-        'width' : ${adWidth},
-        'params' : {}
-      };
-    `;
-
-    const script2 = document.createElement("script");
-    script2.type = "text/javascript";
-    script2.src = `https://www.highperformanceformat.com/101c6d1138f9b92802136fd3942bb33f/invoke.js?cb=${Date.now()}-${id}`;
-
-    bannerDiv.appendChild(script1);
-    bannerDiv.appendChild(script2);
-    containerRef.current.appendChild(bannerDiv);
-
-  }, [width, height, id]);
+    try {
+      // @ts-ignore
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.log("AdSense error:", e);
+    }
+  }, []);
 
   return (
-    <div className={`flex justify-center my-4 w-full overflow-hidden ${className}`}>
-      <div ref={containerRef} className="max-w-full flex justify-center" />
+    <div style={{ width, height }} className="flex justify-center items-center overflow-hidden bg-muted/30 rounded">
+      <ins
+        ref={adRef as any}
+        className="adsbygoogle"
+        style={{ display: 'block', width: `${width}px`, height: `${height}px` }}
+        data-ad-client="ca-pub-YOUR_ID"
+        data-ad-slot="YOUR_SLOT_ID"
+        data-ad-format="auto"
+      />
     </div>
   );
 }
 
-// Side wale box ke liye alag component - Native ke liye
 export function NativeAdSlot() {
+  // ye random id banayega taaki 2 banner clash na kare
+  const randomId = Math.random().toString(36).substring(7);
+
   return (
-    <div className="w-full max-w-3xl mx-auto px-2 overflow-hidden">
+    <div className="w-full max-w-[340px] sm:max-w-3xl mx-auto px-1">
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        {/* Ad 1 */}
-        <a href="#" className="block group">
-          <img
-            src="https://picsum.photos/seed/ad1/300/200"
-            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
-            alt="ad"
-          />
-          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">Lonely divorced moms are here 👀</p>
-        </a>
-        {/* Ad 2 */}
-        <a href="#" className="block group">
-          <img
-            src="https://picsum.photos/seed/ad2/300/200"
-            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
-            alt="ad"
-          />
-          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">NHL Finals — Live in HD</p>
-        </a>
-        {/* Ad 3 */}
-        <a href="#" className="block group">
-          <img
-            src="https://picsum.photos/seed/ad3/300/200"
-            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
-            alt="ad"
-          />
-          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">College girls need friends</p>
-        </a>
-        {/* Ad 4 */}
-        <a href="#" className="block group">
-          <img
-            src="https://picsum.photos/seed/ad4/300/200"
-            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
-            alt="ad"
-          />
-          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">Backrooms: Watch now horror you can't escape</p>
-        </a>
+        <div className="overflow-hidden">
+          <img src={`https://picsum.photos/seed/${randomId}1/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
+          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">Lonely divorced moms are here</p>
+        </div>
+        <div className="overflow-hidden">
+          <img src={`https://picsum.photos/seed/${randomId}2/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
+          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">NHL Finals — Live in HD</p>
+        </div>
+        <div className="overflow-hidden">
+          <img src={`https://picsum.photos/seed/${randomId}3/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
+          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">College girls need friends</p>
+        </div>
+        <div className="overflow-hidden">
+          <img src={`https://picsum.photos/seed/${randomId}4/200/120`} className="w-full h-[75px] sm:h-[90px] object-cover rounded" alt="" />
+          <p className="text-[9px] sm:text-[10px] mt-1 line-clamp-2">Backrooms: Watch now</p>
+        </div>
       </div>
     </div>
   );
