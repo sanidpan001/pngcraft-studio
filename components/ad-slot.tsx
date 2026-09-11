@@ -1,48 +1,50 @@
-"use client";
-import { useEffect, useRef, useId } from "react";
+'use client';
+import { useEffect, useRef, useState } from 'react';
 
-export function AdSlot({ width, height, className }: { width: number, height: number, className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const id = useId().replace(/:/g, "");
+export function AdSlot() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-    const isMobile = window.innerWidth < 768;
-    const adWidth = isMobile? 300 : width;
-    const adHeight = isMobile? 250 : height;
-
-    // Purana ad clear
-    containerRef.current.innerHTML = "";
-
-    // 1. atOptions wala banner
-    const bannerDiv = document.createElement("div");
-    bannerDiv.id = ad-${id};
-
-    const script1 = document.createElement("script");
-    script1.type = "text/javascript";
-    script1.innerHTML = `
-      atOptions = {
-        'key' : '101c6d1138f9b92802136fd3942bb33f',
-        'format' : 'iframe',
-        'height' : ${adHeight},
-        'width' : ${adWidth},
-        'params' : {}
-      };
-    `;
-
-    const script2 = document.createElement("script");
-    script2.type = "text/javascript";
-    script2.src = https://www.highperformanceformat.com/101c6d1138f9b92802136fd3942bb33f/invoke.js?cb=${Date.now()}-${id};
-
-    bannerDiv.appendChild(script1);
-    bannerDiv.appendChild(script2);
-    containerRef.current.appendChild(bannerDiv);
-
-  }, [width, height, id]);
+    setIsMobile(window.innerWidth < 768);
+    if (!ref.current) return;
+    ref.current.innerHTML = '';
+    const s1 = document.createElement('script');
+    s1.innerHTML = `atOptions={'key':'101c6d1138f9b92802136fd3942bb33f','format':'iframe','height':90,'width':728,'params':{}};`;
+    const s2 = document.createElement('script');
+    s2.src = 'https://www.highrevenueformat.com/101c6d1138f9b92802136fd3942bb33f/invoke.js';
+    ref.current.append(s1, s2);
+  }, []);
 
   return (
-    <div className={flex justify-center my-4 w-full overflow-hidden ${className}}>
-      <div ref={containerRef} className="max-w-full flex justify-center" />
+    <div className="w-full flex justify-center overflow-hidden">
+      <div 
+        ref={ref} 
+        className="scale-[0.45] sm:scale-100 origin-top"
+        style={{ width: '728px', height: '90px' }}
+      />
     </div>
   );
+}
+
+export function NativeAdSlot() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const id = 'container-33a44e0346854dbc8c664a7c76a4f13f';
+    let container = document.getElementById(id);
+    if(!container && ref.current){
+      container = document.createElement('div');
+      container.id = id;
+      ref.current.appendChild(container);
+    }
+    const src = 'https://pl31287192.profitableratecpmnetwork.com/33a44e0346854dbc8c664a7c76a4f13f/invoke.js';
+    if (!document.querySelector(`script[src="${src}"]`)) {
+      const s = document.createElement('script');
+      s.src = src;
+      s.async = true;
+      s.setAttribute('data-cfasync','false');
+      document.body.appendChild(s);
+    }
+  }, []);
+  return <div ref={ref} className="w-full flex justify-center"><div id="container-33a44e0346854dbc8c664a7c76a4f13f"></div></div>;
 }
