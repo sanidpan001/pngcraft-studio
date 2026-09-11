@@ -49,17 +49,46 @@ export function AdSlot({ width, height, className }: { width: number, height: nu
 
 // Side wale box ke liye alag component - Native ke liye
 export function NativeAdSlot() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!ref.current || ref.current.querySelector('script')) return;
-    const script = document.createElement("script");
-    script.async = true;
-    script.setAttribute("data-cfasync", "false");
-    script.src = "https://pl31287192.profitableratecpmnetwork.com/33a44e0346854dbc8c664a7c76a4f13f/invoke.js";
-    const div = document.createElement("div");
-    div.id = "container-33a44e0346854dbc8c664a7c76a4f13f";
-    ref.current.appendChild(div);
-    ref.current.appendChild(script);
-  }, []);
-  return <div ref={ref} className="w-full min-h-[250px] flex justify-center items-center" />;
+  return (
+    <div className="w-full max-w-3xl mx-auto px-2 overflow-hidden">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {/* Ad 1 */}
+        <a href="#" className="block group">
+          <img
+            src="https://picsum.photos/seed/ad1/300/200"
+            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
+            alt="ad"
+          />
+          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">Lonely divorced moms are here 👀</p>
+        </a>
+        {/* Ad 2 */}
+        <a href="#" className="block group">
+          <img
+            src="https://picsum.photos/seed/ad2/300/200"
+            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
+            alt="ad"
+          />
+          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">NHL Finals — Live in HD</p>
+        </a>
+        {/* Ad 3 */}
+        <a href="#" className="block group">
+          <img
+            src="https://picsum.photos/seed/ad3/300/200"
+            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
+            alt="ad"
+          />
+          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">College girls need friends</p>
+        </a>
+        {/* Ad 4 */}
+        <a href="#" className="block group">
+          <img
+            src="https://picsum.photos/seed/ad4/300/200"
+            className="w-full h-[90px] sm:h-[110px] object-cover rounded-md"
+            alt="ad"
+          />
+          <p className="mt-1 text-[10px] leading-tight sm:text-[11px] line-clamp-2 text-left">Backrooms: Watch now horror you can't escape</p>
+        </a>
+      </div>
+    </div>
+  );
 }
